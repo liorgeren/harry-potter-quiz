@@ -10,6 +10,10 @@ export default function RoundResult({
   playerDiamonds,
   aiDiamonds,
   onNext,
+  onSave,
+  canSave,
+  saveCost,
+  lastSavedRound,
   isLastRound,
 }) {
   const roundData = ROUNDS[currentRound];
@@ -91,6 +95,26 @@ export default function RoundResult({
         <DiamondCounter count={playerDiamonds} label="Your total" />
         <DiamondCounter count={aiDiamonds} label="AI total" />
       </div>
+
+      {/* Save progress */}
+      {!isLastRound && (
+        <div className="save-progress-row">
+          <button
+            className={`btn-save-progress ${!canSave ? 'btn-save-progress--disabled' : ''}`}
+            onClick={canSave ? onSave : undefined}
+            disabled={!canSave}
+            title={canSave ? `Save your progress for ${saveCost} 💎` : `Not enough diamonds (need ${saveCost} 💎)`}
+          >
+            💾 Save Progress ({saveCost} 💎)
+          </button>
+          {lastSavedRound === currentRound && (
+            <span className="save-progress-confirm">✅ Saved!</span>
+          )}
+          {!canSave && (
+            <span className="save-progress-note">Need {saveCost} 💎 to save</span>
+          )}
+        </div>
+      )}
 
       <button className="btn btn-primary btn-large" onClick={onNext}>
         {isLastRound ? 'See Final Results' : `Next Round →`}

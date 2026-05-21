@@ -140,18 +140,59 @@ body {
 .title-screen {
   justify-content: center;
   text-align: center;
-  background-image: url('/harry-potter-game/images/questions/Golden-trio-harry-potter-13747243-299-400.webp');
-  background-size: contain;
-  background-position: center center;
-  background-repeat: no-repeat;
+  /* Starry night sky fills the whole background */
+  background:
+    radial-gradient(1px   1px   at  8%  12%, #fff                    100%, transparent),
+    radial-gradient(1.5px 1.5px at 19%  38%, rgba(255,255,255,0.85)  100%, transparent),
+    radial-gradient(1px   1px   at 33%   6%, #fff                    100%, transparent),
+    radial-gradient(1px   1px   at 47%  22%, rgba(255,255,255,0.65)  100%, transparent),
+    radial-gradient(1.5px 1.5px at 62%  50%, #fff                    100%, transparent),
+    radial-gradient(1px   1px   at 74%   9%, rgba(255,255,255,0.9)   100%, transparent),
+    radial-gradient(1px   1px   at 85%  35%, #fff                    100%, transparent),
+    radial-gradient(1px   1px   at 94%  68%, rgba(255,255,255,0.7)   100%, transparent),
+    radial-gradient(1.5px 1.5px at  4%  78%, #fff                    100%, transparent),
+    radial-gradient(1px   1px   at 16%  62%, rgba(255,255,255,0.8)   100%, transparent),
+    radial-gradient(1px   1px   at 27%  85%, #fff                    100%, transparent),
+    radial-gradient(1px   1px   at 41%  73%, rgba(255,255,255,0.55)  100%, transparent),
+    radial-gradient(1.5px 1.5px at 54%  91%, #fff                    100%, transparent),
+    radial-gradient(1px   1px   at 67%  79%, rgba(255,255,255,0.8)   100%, transparent),
+    radial-gradient(1px   1px   at 79%  95%, #fff                    100%, transparent),
+    radial-gradient(1px   1px   at 89%  18%, rgba(255,255,255,0.65)  100%, transparent),
+    radial-gradient(1.5px 1.5px at 96%  48%, #fff                    100%, transparent),
+    radial-gradient(1px   1px   at  2%  52%, rgba(255,255,255,0.75)  100%, transparent),
+    radial-gradient(1px   1px   at 52%  30%, rgba(255,255,255,0.45)  100%, transparent),
+    radial-gradient(1px   1px   at 13%  28%, #fff                    100%, transparent),
+    radial-gradient(2px   2px   at 38%  58%, rgba(255,255,255,0.3)   100%, transparent),
+    radial-gradient(1px   1px   at 71%  42%, rgba(255,255,255,0.6)   100%, transparent),
+    radial-gradient(1.5px 1.5px at 58%  14%, #fff                    100%, transparent),
+    radial-gradient(1px   1px   at 23%  95%, rgba(255,255,255,0.5)   100%, transparent),
+    /* Deep-space nebula glow */
+    radial-gradient(ellipse at 50% 0%,   #1a0a4a 0%, #05030f 65%),
+    radial-gradient(ellipse at 20% 100%, #0a0530 0%, transparent 60%);
 }
+
+/* Hero image — sits above the star layer, centered with contain */
 .title-screen::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: rgba(8, 5, 20, 0.72);
+  background-image: url('/harry-potter-game/images/questions/Golden-trio-harry-potter-13747243-299-400.webp');
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  filter: brightness(1.25) contrast(1.1);
   z-index: 0;
 }
+
+/* Subtle dark overlay so text stays readable */
+.title-screen::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 3, 15, 0.25);
+  z-index: 0;
+}
+
 .title-screen > * { position: relative; z-index: 1; }
 .title-content { display: flex; flex-direction: column; align-items: center; gap: 18px; z-index: 1; }
 .title-crest { font-size: 64px; filter: drop-shadow(0 0 20px var(--gold)); animation: pulse-glow 2s ease-in-out infinite; }
@@ -183,8 +224,9 @@ body {
   text-transform: uppercase;
 }
 .title-tagline {
-  color: var(--text-dim);
+  color: #ffffff;
   font-size: 0.95rem;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.9);
 }
 .title-features {
   display: flex;
@@ -193,23 +235,26 @@ body {
   justify-content: center;
 }
 .feature-pill {
-  background: var(--card2);
-  border: 1px solid var(--border);
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.3);
   border-radius: 20px;
   padding: 6px 14px;
   font-size: 0.85rem;
-  color: var(--text-dim);
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
 }
 .title-hint-text {
-  font-size: 0.8rem;
-  color: var(--text-dim);
-  opacity: 0.7;
+  font-size: 0.82rem;
+  color: #ffffff;
+  opacity: 1;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.9);
 }
 .title-credit {
-  font-size: 0.72rem;
-  color: var(--text-dim);
-  opacity: 0.45;
+  font-size: 1rem;
+  color: #ffffff;
+  opacity: 1;
   letter-spacing: 0.06em;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.9);
 }
 
 .btn-how-to-play {
@@ -769,6 +814,124 @@ body {
 .summary-round-num   { font-size: 0.65rem; color: var(--text-dim); }
 .summary-round-icon  { font-size: 1rem; }
 .summary-round-score { font-size: 0.65rem; color: var(--text-dim); }
+
+/* ── Persistent diamond badge ───────────────────────────── */
+.diamond-badge {
+  position: fixed;
+  top: 12px;
+  right: 14px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(18, 14, 36, 0.82);
+  border: 1.5px solid var(--gold-dim);
+  border-radius: 20px;
+  padding: 5px 12px 5px 9px;
+  font-size: 0.9rem;
+  backdrop-filter: blur(6px);
+  pointer-events: none;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.diamond-badge-count {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  color: var(--gold);
+  font-size: 0.95rem;
+}
+
+/* ── Save Progress (Round Result) ──────────────────────── */
+.save-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-save-progress {
+  background: none;
+  border: 1.5px solid var(--gold-dim);
+  color: var(--gold);
+  border-radius: var(--radius);
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  font-family: 'Lato', sans-serif;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s;
+}
+.btn-save-progress:hover:not(:disabled) {
+  background: rgba(212,175,55,0.12);
+  border-color: var(--gold);
+}
+.btn-save-progress--disabled,
+.btn-save-progress:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.save-progress-confirm {
+  font-size: 0.85rem;
+  color: var(--green);
+  font-weight: 700;
+}
+.save-progress-note {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+/* ── Resume card (Title Screen) ─────────────────────────── */
+.save-resume-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: rgba(212,175,55,0.08);
+  border: 1.5px solid var(--gold-dim);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  gap: 12px;
+}
+.save-resume-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+.save-resume-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.save-resume-label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--gold);
+}
+.save-resume-detail {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+.save-resume-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.btn-delete-save {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+  padding: 4px;
+  border-radius: 6px;
+}
+.btn-delete-save:hover { opacity: 1; }
 
 /* ── Responsive tweaks ──────────────────────────────────── */
 @media (max-width: 360px) {

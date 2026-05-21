@@ -48,7 +48,7 @@ export const ROUNDS = [
         id: 'r2q1',
         question: 'What is the name of the map Fred and George give to Harry?',
         answer: "Marauder's Map",
-        accepted: ["marauder's map", 'marauders map', "the marauder's map"],
+        accepted: ["marauder's map", 'marauders map', "the marauder's map", 'marandaurs map', 'maranders map', 'maranduers map', 'marauder map'],
         wrongAnswers: ['The Hogwarts Map', 'The Weasley Map', 'The Secret Map'],
       },
       {

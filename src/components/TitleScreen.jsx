@@ -1,7 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getSavedGame, deleteSavedGame, SAVE_COST } from '../hooks/useGameState';
+import { ROUNDS } from '../data/questions';
 
-export default function TitleScreen({ onStart }) {
+export default function TitleScreen({ onStart, onResume }) {
   const [showHow, setShowHow] = useState(false);
+  const [savedGame, setSavedGame] = useState(null);
+
+  useEffect(() => {
+    setSavedGame(getSavedGame());
+  }, []);
+
+  function handleResume() {
+    if (savedGame) onResume(savedGame);
+  }
+
+  function handleDeleteSave() {
+    deleteSavedGame();
+    setSavedGame(null);
+  }
 
   return (
     <div className="screen title-screen">
@@ -32,8 +48,30 @@ export default function TitleScreen({ onStart }) {
           <span className="feature-pill">💡 Buy Hints</span>
           <span className="feature-pill">⚡ Race the AI</span>
         </div>
+        {savedGame && (
+          <div className="save-resume-card">
+            <div className="save-resume-info">
+              <span className="save-resume-icon">💾</span>
+              <div>
+                <span className="save-resume-label">Saved Game Found</span>
+                <span className="save-resume-detail">
+                  Round {savedGame.currentRound + 1} of {ROUNDS.length} · {savedGame.playerDiamonds} 💎
+                </span>
+              </div>
+            </div>
+            <div className="save-resume-actions">
+              <button className="btn btn-primary" onClick={handleResume}>
+                Resume →
+              </button>
+              <button className="btn-delete-save" onClick={handleDeleteSave} title="Delete saved game">
+                🗑
+              </button>
+            </div>
+          </div>
+        )}
+
         <button className="btn btn-primary btn-large" onClick={onStart}>
-          Begin Your Quest
+          {savedGame ? 'New Game' : 'Begin Your Quest'}
         </button>
         <button className="btn-how-to-play" onClick={() => setShowHow(true)}>
           How to Play
@@ -75,6 +113,11 @@ export default function TitleScreen({ onStart }) {
             <div className="htp-section">
               <h3 className="htp-section-title">💡 Hints</h3>
               <p>Spend <strong>10 💎</strong> on a hint to instantly reveal the answer and score the point. The AI won't answer that question.</p>
+            </div>
+
+            <div className="htp-section">
+              <h3 className="htp-section-title">💾 Save Progress</h3>
+              <p>After each round, spend <strong>{SAVE_COST} 💎</strong> to save your progress. Next time you open the game, tap <strong>Resume</strong> to continue from the same round.</p>
             </div>
 
             <div className="htp-section">

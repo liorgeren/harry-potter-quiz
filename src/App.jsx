@@ -14,7 +14,7 @@ export default function App() {
   function renderScreen() {
     switch (game.screen) {
       case SCREENS.TITLE:
-        return <TitleScreen onStart={game.startGame} />;
+        return <TitleScreen onStart={game.startGame} onResume={game.resumeGame} />;
 
       case SCREENS.AVATAR_SELECT:
         return <AvatarSelect onSelect={game.selectAvatar} />;
@@ -56,6 +56,10 @@ export default function App() {
             playerDiamonds={game.playerDiamonds}
             aiDiamonds={game.aiDiamonds}
             onNext={game.finishRound}
+            onSave={game.saveProgress}
+            canSave={game.canSave}
+            saveCost={game.SAVE_COST}
+            lastSavedRound={game.lastSavedRound}
             isLastRound={game.currentRound >= ROUNDS.length - 1}
           />
         );
@@ -76,5 +80,16 @@ export default function App() {
     }
   }
 
-  return <div className="app">{renderScreen()}</div>;
+  const showBadge = game.screen !== SCREENS.TITLE;
+
+  return (
+    <div className="app">
+      {showBadge && (
+        <div className="diamond-badge" aria-label={`You have ${game.playerDiamonds} diamonds`}>
+          💎 <span className="diamond-badge-count">{game.playerDiamonds}</span>
+        </div>
+      )}
+      {renderScreen()}
+    </div>
+  );
 }
