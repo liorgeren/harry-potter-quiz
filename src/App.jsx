@@ -23,6 +23,7 @@ export default function App() {
         return (
           <RoundIntro
             currentRound={game.currentRound}
+            playerName={game.playerName}
             playerAvatar={game.playerAvatar}
             playerDiamonds={game.playerDiamonds}
             aiDiamonds={game.aiDiamonds}
@@ -38,6 +39,7 @@ export default function App() {
             questionIndex={game.currentQuestion}
             totalQuestions={ROUNDS[game.currentRound].questions.length}
             currentRound={game.currentRound}
+            playerName={game.playerName}
             playerAvatar={game.playerAvatar}
             playerDiamonds={game.playerDiamonds}
             canUseHint={game.canUseHint}
@@ -52,6 +54,7 @@ export default function App() {
           <RoundResult
             currentRound={game.currentRound}
             questionResults={game.questionResults}
+            playerName={game.playerName}
             playerAvatar={game.playerAvatar}
             playerDiamonds={game.playerDiamonds}
             aiDiamonds={game.aiDiamonds}
@@ -67,6 +70,7 @@ export default function App() {
       case SCREENS.GAME_OVER:
         return (
           <GameOver
+            playerName={game.playerName}
             playerAvatar={game.playerAvatar}
             roundSummaries={game.roundSummaries}
             playerDiamonds={game.playerDiamonds}

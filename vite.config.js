@@ -3,5 +3,5 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/harry-potter-game/',
+  base: '/harry-potter-quiz/',
 })

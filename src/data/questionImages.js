@@ -2,7 +2,7 @@
 // null = no background (plain dark theme shown instead).
 // Base path is relative to the public/ folder.
 
-const img = (file) => `/harry-potter-game/images/questions/${file}`;
+const img = (file) => `/harry-potter-quiz/images/questions/${file}`;
 
 export const QUESTION_IMAGES = {
   // ── Round 1: Draco Malfoy ───────────────────────────────

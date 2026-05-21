@@ -30,6 +30,7 @@ export function getSavedGame() {
 function persistSave(state) {
   try {
     localStorage.setItem(SAVE_KEY, JSON.stringify({
+      playerName:     state.playerName,
       playerAvatar:   state.playerAvatar,
       currentRound:   state.currentRound,
       playerDiamonds: state.playerDiamonds,
@@ -50,6 +51,7 @@ export function deleteSavedGame() {
 function initialState() {
   return {
     screen: SCREENS.TITLE,
+    playerName: '',
     playerAvatar: null,
     currentRound: 0,
     currentQuestion: 0,
@@ -59,7 +61,7 @@ function initialState() {
     roundsLost: 0,
     questionResults: [],
     roundSummaries: [],
-    lastSavedRound: null,   // round index at last save (for feedback)
+    lastSavedRound: null,
   };
 }
 
@@ -77,13 +79,14 @@ function countScores(results) {
 function reducer(state, action) {
   switch (action.type) {
     case 'START_GAME':
-      return { ...initialState(), screen: SCREENS.AVATAR_SELECT };
+      return { ...initialState(), playerName: action.name || '', screen: SCREENS.AVATAR_SELECT };
 
     case 'RESUME_GAME': {
       const s = action.save;
       return {
         ...initialState(),
         screen:         SCREENS.ROUND_INTRO,
+        playerName:     s.playerName || '',
         playerAvatar:   s.playerAvatar,
         currentRound:   s.currentRound,
         playerDiamonds: s.playerDiamonds,
@@ -166,7 +169,7 @@ function reducer(state, action) {
 export function useGameState() {
   const [state, dispatch] = useReducer(reducer, undefined, initialState);
 
-  const startGame           = useCallback(() => dispatch({ type: 'START_GAME' }), []);
+  const startGame           = useCallback((name) => dispatch({ type: 'START_GAME', name }), []);
   const resumeGame          = useCallback((save) => dispatch({ type: 'RESUME_GAME', save }), []);
   const selectAvatar        = useCallback((avatar) => dispatch({ type: 'SELECT_AVATAR', avatar }), []);
   const beginRound          = useCallback(() => dispatch({ type: 'BEGIN_ROUND' }), []);

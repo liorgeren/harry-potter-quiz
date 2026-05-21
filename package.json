@@ -1,5 +1,5 @@
 {
-  "name": "harry-potter-game",
+  "name": "harry-potter-quiz",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,7 +11,7 @@
     "predeploy": "vite build",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://liorgeren.github.io/harry-potter-game/",
+  "homepage": "https://liorgeren.github.io/harry-potter-quiz/",
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

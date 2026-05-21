@@ -5,10 +5,20 @@ import { ROUNDS } from '../data/questions';
 export default function TitleScreen({ onStart, onResume }) {
   const [showHow, setShowHow] = useState(false);
   const [savedGame, setSavedGame] = useState(null);
+  const [name, setName] = useState('');
+  const [nameError, setNameError] = useState(false);
 
   useEffect(() => {
     setSavedGame(getSavedGame());
   }, []);
+
+  function handleStart() {
+    if (!name.trim()) {
+      setNameError(true);
+      return;
+    }
+    onStart(name.trim());
+  }
 
   function handleResume() {
     if (savedGame) onResume(savedGame);
@@ -40,7 +50,7 @@ export default function TitleScreen({ onStart, onResume }) {
         <div className="title-crest" aria-hidden="true">⚡</div>
         <h1 className="title-heading">
           <span className="title-harry">Harry Potter</span>
-          <span className="title-trivia">Trivia Challenge</span>
+          <span className="title-trivia">Quiz</span>
         </h1>
         <p className="title-tagline">You vs AI · 15 Rounds · 5 Questions Each</p>
         <div className="title-features">
@@ -70,7 +80,21 @@ export default function TitleScreen({ onStart, onResume }) {
           </div>
         )}
 
-        <button className="btn btn-primary btn-large" onClick={onStart}>
+        <div className="name-entry">
+          <input
+            className={`name-input ${nameError ? 'name-input--error' : ''}`}
+            type="text"
+            placeholder="Enter your name..."
+            value={name}
+            maxLength={20}
+            onChange={(e) => { setName(e.target.value); setNameError(false); }}
+            onKeyDown={(e) => e.key === 'Enter' && handleStart()}
+            autoComplete="off"
+          />
+          {nameError && <span className="name-error">Please enter your name first!</span>}
+        </div>
+
+        <button className="btn btn-primary btn-large" onClick={handleStart}>
           {savedGame ? 'New Game' : 'Begin Your Quest'}
         </button>
         <button className="btn-how-to-play" onClick={() => setShowHow(true)}>

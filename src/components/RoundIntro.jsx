@@ -5,6 +5,7 @@ import DiamondCounter from './DiamondCounter';
 
 export default function RoundIntro({
   currentRound,
+  playerName,
   playerAvatar,
   playerDiamonds,
   aiDiamonds,
@@ -26,7 +27,7 @@ export default function RoundIntro({
       <div className="vs-container">
         <div className="vs-player">
           <AvatarDisplay avatar={playerAvatar} size="lg" />
-          <span className="vs-player-name">You</span>
+          <span className="vs-player-name">{playerName || 'You'}</span>
           <DiamondCounter count={playerDiamonds} />
         </div>
 

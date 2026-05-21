@@ -6,6 +6,7 @@ import DiamondCounter from './DiamondCounter';
 export default function RoundResult({
   currentRound,
   questionResults,
+  playerName,
   playerAvatar,
   playerDiamonds,
   aiDiamonds,
@@ -53,7 +54,7 @@ export default function RoundResult({
       <div className="round-scores">
         <div className="score-box">
           <AvatarDisplay avatar={playerAvatar} size="md" />
-          <span className="score-name">You</span>
+          <span className="score-name">{playerName || 'You'}</span>
           <span className="score-value">{playerScore}</span>
         </div>
         <div className="score-divider">—</div>

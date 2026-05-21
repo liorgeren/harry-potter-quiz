@@ -14,6 +14,7 @@ export default function QuestionScreen({
   questionIndex,
   totalQuestions,
   currentRound,
+  playerName,
   playerAvatar,
   playerDiamonds,
   canUseHint,
@@ -222,7 +223,7 @@ export default function QuestionScreen({
         <div className={`answer-box player-answer-box ${feedback === 'correct' ? 'answer-correct' : feedback === 'wrong' ? 'answer-wrong' : ''}`}>
           <div className="answer-box-header">
             <AvatarDisplay avatar={playerAvatar} size="sm" />
-            <span className="answer-box-label">You</span>
+            <span className="answer-box-label">{playerName || 'You'}</span>
           </div>
           <form onSubmit={handlePlayerSubmit} className="answer-form">
             <input

@@ -2,6 +2,7 @@ import AvatarDisplay from './AvatarDisplay';
 import { AI_AVATARS } from '../data/avatars';
 
 export default function GameOver({
+  playerName,
   playerAvatar,
   roundSummaries,
   playerDiamonds,
@@ -41,7 +42,7 @@ export default function GameOver({
       <div className="gameover-scores">
         <div className="gameover-score-box">
           <AvatarDisplay avatar={playerAvatar} size="lg" />
-          <span className="gameover-score-name">You</span>
+          <span className="gameover-score-name">{playerName || 'You'}</span>
           <span className="gameover-score-rounds">{playerRoundsWon} rounds won</span>
           <span className="gameover-score-diamonds">💎 {playerDiamonds}</span>
         </div>
